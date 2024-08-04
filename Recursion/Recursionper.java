@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Permutation{
+public class Recursionper {
     public static void main(String[] args) {
         String str="abc";
         System.out.println( allPermutation(str,""));
         System.out.println(countPermutation(str,""));
         List<List<Integer>> ans=new ArrayList<>();
         int [] arr={1,2,3};
-        allPermutationNumber(arr, 0, new ArrayList<>(), ans);
-        System.err.println(arr);
+        allPermutationNumber(arr, 0, ans);
+        System.err.println(ans);
     }
     private static ArrayList<String> allPermutation(String str,String p){
         if(str.isEmpty()){
@@ -40,8 +40,9 @@ public class Permutation{
         }
         return count;
     }
-    private static void allPermutationNumber(int[] arr,int ind,List<Integer> temp,List<List<Integer>>ans){
+    private static void allPermutationNumber(int[] arr,int ind,List<List<Integer>>ans){
         if(ind==arr.length){
+            List<Integer> temp=new ArrayList<>();
             for(int i=0;i<arr.length;i++){
                 temp.add(arr[i]);
             }
@@ -50,7 +51,7 @@ public class Permutation{
         }
         for(int i=ind;i<arr.length;i++){
             swap(arr,i,ind);
-            allPermutationNumber(arr, ind+1, temp, ans);
+            allPermutationNumber(arr, ind+1, ans);
             swap(arr,i,ind);
         }
     }

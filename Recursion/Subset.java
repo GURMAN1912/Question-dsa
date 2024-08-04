@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Subset {
@@ -8,8 +9,14 @@ public class Subset {
         int[] dset = {1,2,2};
         List<List<Integer>> subsets = subset(set, 0, new ArrayList<>());
         List<List<Integer>> dulsubsets = duplicateArray(dset);
+        List<Integer> Sum=new ArrayList<>();
+        List<List<Integer>> ans=new ArrayList<>();
+        subset2(dset, 0,new ArrayList<>(),ans);
+        subsetSum(set, 0, 0,Sum);
         // System.out.println(subsets);
-        System.out.println(dulsubsets);
+        // System.out.println(dulsubsets);
+        Collections.sort(Sum);
+        System.out.println(ans);
     }
 
     private static List<List<Integer>> subset(int[] arr, int i, List<Integer> temp) {
@@ -50,5 +57,25 @@ public class Subset {
             }
         }
         return outer;
+    }
+    private static void subsetSum(int arr[],int sum, int i,List<Integer> temp ){
+        if(i==arr.length){
+            temp.add(sum);
+            return;
+        }
+        subsetSum(arr,sum+arr[i], i+1, temp);
+        subsetSum(arr,sum, i+1, temp);
+    }
+    public static void subset2(int[] arr,int ind,List<Integer> temp,List<List<Integer>> ans){
+            ans.add(new ArrayList<>(temp));
+        for(int i=ind;i<arr.length;i++){
+            if(i>ind && arr[i]==arr[i-1]){
+                continue;
+            }
+            temp.add(arr[i]);
+            subset2(arr, i+1, temp, ans);
+            temp.remove(temp.size()-1);
+        }
+        return;
     }
 }
